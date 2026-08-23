@@ -1,0 +1,22 @@
+{
+  "company": "acmecorp",
+  "orders": [
+    {
+      "id": "ORD-1001",
+      "customer": "Nigel Rees",
+      "status": "shipped",
+      "items": [
+        { "sku": "WIDGET-A", "qty": 3, "price": 9.99 },
+        { "sku": "WIDGET-B", "qty": 1, "price": 24.5 }
+      ]
+    },
+    {
+      "id": "ORD-1002",
+      "customer": "Evelyn Waugh",
+      "status": "pending",
+      "items": [
+        { "sku": "WIDGET-C", "qty": 2, "price": 14.0 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>dev.gaphunter.jsonpathbuildercompanion</id>
+    <name>JSON Path Builder Companion</name>
+    <vendor>Gap Hunter Labs</vendor>
+    <description><![CDATA[
+        <p>A tool window with a JSONPath field and a sample-JSON text
+        area -- type an expression, type or paste sample JSON, and every
+        matched node is highlighted live as you type, with a real match
+        count.</p>
+        <p>Covers the common JSONPath subset: <code>$</code> root,
+        <code>.key</code>, <code>['key']</code>, <code>[n]</code> (array
+        index), <code>.*</code>/<code>[*]</code> (wildcard), and
+        <code>..key</code> (recursive descent -- every value named
+        <code>key</code> at any depth). An invalid expression shows the
+        real parse error and position instead of silently matching
+        nothing.</p>
+        <p><b>100% static PSI analysis of your typed sample -- no
+        external JSONPath library, no network call.</b> Stated honestly:
+        v0.1 does not cover filter expressions (<code>[?(...)]</code>),
+        array slices, union syntax, or recursive wildcard
+        (<code>..*</code>) -- real, documented limitations, not bugs.</p>
+        <p>Free. No license nags, no telemetry.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.json</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="JSON Path Builder"
+                    anchor="bottom"
+                    icon="/icons/toolWindow.svg"
+                    factoryClass="dev.gaphunter.jsonpathbuildercompanion.toolwindow.JsonPathBuilderToolWindowFactory"/>
+    </extensions>
+</idea-plugin>
