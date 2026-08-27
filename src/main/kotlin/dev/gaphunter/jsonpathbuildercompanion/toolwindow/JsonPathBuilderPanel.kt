@@ -13,9 +13,11 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.JBTextArea
 import com.intellij.ui.components.JBTextField
+import com.intellij.util.Alarm
 import dev.gaphunter.jsonpathbuildercompanion.eval.JsonPathEvaluator
 import dev.gaphunter.jsonpathbuildercompanion.model.JsonPathParseResult
 import dev.gaphunter.jsonpathbuildercompanion.parse.JsonPathParser
+import dev.gaphunter.jsonpathbuildercompanion.review.ReviewPrompt
 import java.awt.BorderLayout
 import java.awt.Color
 import javax.swing.BorderFactory
@@ -43,6 +45,18 @@ class JsonPathBuilderPanel(private val project: Project) : JPanel(BorderLayout()
     private val sampleJsonArea = JBTextArea(14, 60).apply { lineWrap = true; wrapStyleWord = true }
     private val statusLabel = JBLabel(" ")
     private val highlightPainter = DefaultHighlighter.DefaultHighlightPainter(JBColor(Color(255, 235, 59, 120), Color(255, 235, 59, 90)))
+
+    // Live-per-keystroke recompute (see the class doc above) is exactly the
+    // "never count a keystroke" case the CTA design warns about -- a
+    // separate debounce, only for the CTA signal, turns that continuous
+    // stream into one discrete "the user paused after typing something
+    // that produced a real match" event, ~800ms after the last edit.
+    // No parent Disposable is passed (this panel isn't one) -- a single
+    // Alarm scoped to one tool-window panel instance's own lifetime is
+    // an acceptable, harmless leak-of-scope here (same class of tradeoff
+    // as the rest of this self-contained panel's Swing listeners, which
+    // are never explicitly unregistered either).
+    private val reviewAlarm = Alarm(Alarm.ThreadToUse.SWING_THREAD, null)
 
     init {
         val topPanel = JPanel(BorderLayout())
@@ -96,8 +110,20 @@ class JsonPathBuilderPanel(private val project: Project) : JPanel(BorderLayout()
                 highlightMatches(matches)
                 statusLabel.text = "${matches.size} match(es)"
                 statusLabel.foreground = JBColor.foreground()
+                if (matches.isNotEmpty()) scheduleReviewHit()
             }
         }
+    }
+
+    /**
+     * Debounced ~800ms after the last edit -- reset on every call, so a
+     * user who keeps typing (still producing matches on every keystroke)
+     * never fires this repeatedly; only a real pause after a successful
+     * expression counts as one real "session of use".
+     */
+    private fun scheduleReviewHit() {
+        reviewAlarm.cancelAllRequests()
+        reviewAlarm.addRequest({ ReviewPrompt.recordHit(project) }, 800)
     }
 
     private fun highlightMatches(matches: List<JsonValue>) {

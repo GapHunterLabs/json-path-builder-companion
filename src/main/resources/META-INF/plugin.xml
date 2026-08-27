@@ -27,6 +27,7 @@
     <depends>com.intellij.modules.json</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="JSON Path Builder Companion" displayType="BALLOON"/>
         <toolWindow id="JSON Path Builder"
                     anchor="bottom"
                     icon="/icons/toolWindow.svg"

@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [0.1.1]
+
+### Added
+
+- Review/star CTA: after 5 debounced sessions of use (a real pause
+  after typing a JSONPath that actually matched something -- never a
+  raw keystroke), a one-time notification asks whether to rate the
+  plugin on Marketplace, with a permanent "Don't ask again" option.
+
 ## [0.1.0]
 
 ### Added
@@ -19,5 +28,6 @@
 - 100% static PSI analysis, no external JSONPath library, no network
   calls, no telemetry. Free.
 
-[Unreleased]: https://github.com/GapHunterLabs/json-path-builder-companion/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/GapHunterLabs/json-path-builder-companion/compare/0.1.1...HEAD
+[0.1.1]: https://github.com/GapHunterLabs/json-path-builder-companion/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/GapHunterLabs/json-path-builder-companion/commits/0.1.0
