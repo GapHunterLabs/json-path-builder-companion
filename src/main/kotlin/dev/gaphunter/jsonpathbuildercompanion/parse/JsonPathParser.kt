@@ -5,8 +5,8 @@ import dev.gaphunter.jsonpathbuildercompanion.model.PathSegment
 
 /**
  * Hand-rolled tokenizer/parser for a JSONPath expression, same class of
- * technique as `DockerfileParser`/`NginxLexer` (`CONSTITUTION.md` §6) --
- * no external JSONPath library, no bundled dependency.
+ * technique as `DockerfileParser`/`NginxLexer` -- no external JSONPath
+ * library, no bundled dependency.
  *
  * **v0.1 syntax subset recognized, stated honestly:** `$` root, `.key`,
  * `['key']`/`["key"]`, `[n]` (array index), `.*`/`[*]` (wildcard, every
