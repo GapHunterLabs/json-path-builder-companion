@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+## [0.1.2]
+
+### Fixed
+
+- Review/star CTA now links to this plugin's own Marketplace
+  reviews page instead of the vendor's generic plugin list.
+
 ## [0.1.1]
 
 ### Added
@@ -28,6 +35,7 @@
 - 100% static PSI analysis, no external JSONPath library, no network
   calls, no telemetry. Free.
 
-[Unreleased]: https://github.com/GapHunterLabs/json-path-builder-companion/compare/0.1.1...HEAD
+[Unreleased]: https://github.com/GapHunterLabs/json-path-builder-companion/compare/0.1.2...HEAD
+[0.1.2]: https://github.com/GapHunterLabs/json-path-builder-companion/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/GapHunterLabs/json-path-builder-companion/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/GapHunterLabs/json-path-builder-companion/commits/0.1.0
